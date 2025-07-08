@@ -1,0 +1,31 @@
+# Git
+.git
+.gitignore
+README.md
+
+# Documentation
+*.md
+
+# IDE
+.vscode
+.idea
+
+# Dependencies
+vendor/
+
+# Build artifacts
+main
+*.exe
+
+# Test files
+*_test.go
+
+# CI/CD
+.github
+.gitlab-ci.yml
+
+# Kubernetes manifests
+../k8s-manifests/
+
+# Scripts
+../scripts/ 
