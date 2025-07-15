@@ -1,0 +1,220 @@
+=== Docker Build Script Started at Tue Jul 15 21:51:23 JST 2025 ===
+2025-07-15 21:51:23 - Building Docker image: k8s-demo-app:latest
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.21kB done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/golang:1.21-alpine
+#2 ...
+
+#3 [auth] library/alpine:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#4 [auth] library/golang:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#5 [internal] load metadata for docker.io/library/alpine:latest
+#5 DONE 2.4s
+
+#2 [internal] load metadata for docker.io/library/golang:1.21-alpine
+#2 DONE 2.4s
+
+#6 [internal] load .dockerignore
+#6 transferring context: 292B done
+#6 DONE 0.0s
+
+#7 [builder 1/7] FROM docker.io/library/golang:1.21-alpine@sha256:2414035b086e3c42b99654c8b26e6f5b1b1598080d65fd03c7f499552ff4dc94
+#7 DONE 0.0s
+
+#8 [stage-1 1/7] FROM docker.io/library/alpine:latest@sha256:8a1f59ffb675680d47db6337b49d22281a139e9d709335b492be023728e11715
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 143B done
+#9 DONE 0.0s
+
+#10 [builder 7/7] RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+#10 CACHED
+
+#11 [builder 2/7] RUN apk add --no-cache git
+#11 CACHED
+
+#12 [stage-1 2/7] RUN apk --no-cache add ca-certificates
+#12 CACHED
+
+#13 [builder 6/7] COPY . .
+#13 CACHED
+
+#14 [stage-1 5/7] WORKDIR /app
+#14 CACHED
+
+#15 [stage-1 4/7] RUN mkdir -p /app && chown appuser:appgroup /app
+#15 CACHED
+
+#16 [stage-1 6/7] COPY --from=builder /app/main .
+#16 CACHED
+
+#17 [builder 3/7] WORKDIR /app
+#17 CACHED
+
+#18 [builder 4/7] COPY go.mod go.sum* ./
+#18 CACHED
+
+#19 [stage-1 3/7] RUN addgroup -g 1001 appgroup &&     adduser -u 1001 -G appgroup -s /bin/sh -D appuser
+#19 CACHED
+
+#20 [builder 5/7] RUN go mod download
+#20 CACHED
+
+#21 [stage-1 7/7] RUN chmod +x main && chown appuser:appgroup main
+#21 CACHED
+
+#22 exporting to image
+#22 exporting layers done
+#22 writing image sha256:5ec654a9474f9fcf14cc15f675e8f1bdb089d479bd499ca6127e223fd0a304e9 done
+#22 naming to docker.io/library/k8s-demo-app:latest done
+#22 DONE 0.0s
+2025-07-15 21:51:26 - Successfully built: k8s-demo-app:latest
+2025-07-15 21:51:26 - Building Docker image: k8s-demo-app:v1.0.0
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.21kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:latest
+#2 ...
+
+#3 [internal] load metadata for docker.io/library/golang:1.21-alpine
+#3 DONE 0.4s
+
+#2 [internal] load metadata for docker.io/library/alpine:latest
+#2 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 292B done
+#4 DONE 0.0s
+
+#5 [stage-1 1/7] FROM docker.io/library/alpine:latest@sha256:8a1f59ffb675680d47db6337b49d22281a139e9d709335b492be023728e11715
+#5 DONE 0.0s
+
+#6 [builder 1/7] FROM docker.io/library/golang:1.21-alpine@sha256:2414035b086e3c42b99654c8b26e6f5b1b1598080d65fd03c7f499552ff4dc94
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 143B done
+#7 DONE 0.0s
+
+#8 [stage-1 5/7] WORKDIR /app
+#8 CACHED
+
+#9 [builder 2/7] RUN apk add --no-cache git
+#9 CACHED
+
+#10 [stage-1 6/7] COPY --from=builder /app/main .
+#10 CACHED
+
+#11 [builder 4/7] COPY go.mod go.sum* ./
+#11 CACHED
+
+#12 [builder 7/7] RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+#12 CACHED
+
+#13 [builder 5/7] RUN go mod download
+#13 CACHED
+
+#14 [stage-1 4/7] RUN mkdir -p /app && chown appuser:appgroup /app
+#14 CACHED
+
+#15 [stage-1 2/7] RUN apk --no-cache add ca-certificates
+#15 CACHED
+
+#16 [builder 6/7] COPY . .
+#16 CACHED
+
+#17 [stage-1 3/7] RUN addgroup -g 1001 appgroup &&     adduser -u 1001 -G appgroup -s /bin/sh -D appuser
+#17 CACHED
+
+#18 [builder 3/7] WORKDIR /app
+#18 CACHED
+
+#19 [stage-1 7/7] RUN chmod +x main && chown appuser:appgroup main
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 writing image sha256:5ec654a9474f9fcf14cc15f675e8f1bdb089d479bd499ca6127e223fd0a304e9 done
+#20 naming to docker.io/library/k8s-demo-app:v1.0.0 done
+#20 DONE 0.0s
+2025-07-15 21:51:27 - Successfully built: k8s-demo-app:v1.0.0
+2025-07-15 21:51:27 - Building Docker image: k8s-demo-app:v2.0.0
+#0 building with "orbstack" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 1.21kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/alpine:latest
+#2 DONE 0.4s
+
+#3 [internal] load metadata for docker.io/library/golang:1.21-alpine
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 292B done
+#4 DONE 0.0s
+
+#5 [builder 1/7] FROM docker.io/library/golang:1.21-alpine@sha256:2414035b086e3c42b99654c8b26e6f5b1b1598080d65fd03c7f499552ff4dc94
+#5 DONE 0.0s
+
+#6 [stage-1 1/7] FROM docker.io/library/alpine:latest@sha256:8a1f59ffb675680d47db6337b49d22281a139e9d709335b492be023728e11715
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 143B done
+#7 DONE 0.0s
+
+#8 [builder 2/7] RUN apk add --no-cache git
+#8 CACHED
+
+#9 [stage-1 5/7] WORKDIR /app
+#9 CACHED
+
+#10 [builder 4/7] COPY go.mod go.sum* ./
+#10 CACHED
+
+#11 [builder 3/7] WORKDIR /app
+#11 CACHED
+
+#12 [stage-1 2/7] RUN apk --no-cache add ca-certificates
+#12 CACHED
+
+#13 [builder 5/7] RUN go mod download
+#13 CACHED
+
+#14 [builder 7/7] RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+#14 CACHED
+
+#15 [stage-1 3/7] RUN addgroup -g 1001 appgroup &&     adduser -u 1001 -G appgroup -s /bin/sh -D appuser
+#15 CACHED
+
+#16 [stage-1 4/7] RUN mkdir -p /app && chown appuser:appgroup /app
+#16 CACHED
+
+#17 [stage-1 6/7] COPY --from=builder /app/main .
+#17 CACHED
+
+#18 [builder 6/7] COPY . .
+#18 CACHED
+
+#19 [stage-1 7/7] RUN chmod +x main && chown appuser:appgroup main
+#19 CACHED
+
+#20 exporting to image
+#20 exporting layers done
+#20 writing image sha256:5ec654a9474f9fcf14cc15f675e8f1bdb089d479bd499ca6127e223fd0a304e9 done
+#20 naming to docker.io/library/k8s-demo-app:v2.0.0 done
+#20 DONE 0.0s
+2025-07-15 21:51:28 - Successfully built: k8s-demo-app:v2.0.0

@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: k8s-demo-quota
+  namespace: k8s-demo-new
+spec:
+  hard:
+    # Compute resources
+    requests.cpu: "2"
+    requests.memory: 2Gi
+    limits.cpu: "4"
+    limits.memory: 4Gi
+    
+    # Storage resources
+    requests.storage: 10Gi
+    persistentvolumeclaims: "5"
+    
+    # Object counts
+    pods: "10"
+    services: "5"
+    secrets: "5"
+    configmaps: "5"
+    replicationcontrollers: "5"
+
+---
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: k8s-demo-limits
+  namespace: k8s-demo-new
+spec:
+  limits:
+  - default:
+      cpu: "200m"
+      memory: "128Mi"
+    defaultRequest:
+      cpu: "100m"
+      memory: "64Mi"
+    max:
+      cpu: "500m"
+      memory: "256Mi"
+    min:
+      cpu: "50m"
+      memory: "32Mi"
+    type: Container
+  - default:
+      storage: "1Gi"
+    max:
+      storage: "5Gi"
+    min:
+      storage: "100Mi"
+    type: PersistentVolumeClaim

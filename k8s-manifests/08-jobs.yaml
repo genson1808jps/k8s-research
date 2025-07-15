@@ -1,0 +1,72 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: k8s-demo-job
+  namespace: k8s-demo-new
+  labels:
+    app: k8s-demo-app
+    type: batch-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: k8s-demo-app
+        type: batch-job
+    spec:
+      containers:
+      - name: load-tester
+        image: k8s-demo-app:v1.0.0
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        args: ["-c", "curl -s http://k8s-demo-service/api/load?iterations=5000000 && echo 'Job completed successfully'"]
+        env:
+        - name: JOB_TYPE
+          value: "load-test"
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "100m"
+          limits:
+            memory: "64Mi"
+            cpu: "200m"
+      restartPolicy: Never
+  backoffLimit: 4
+
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: k8s-demo-cronjob
+  namespace: k8s-demo-new
+  labels:
+    app: k8s-demo-app
+    type: cron-job
+spec:
+  schedule: "*/5 * * * *"  # Every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: k8s-demo-app
+            type: cron-job
+        spec:
+          containers:
+          - name: health-checker
+            image: k8s-demo-app:v1.0.0
+            imagePullPolicy: IfNotPresent
+            command: ["/bin/sh"]
+            args: ["-c", "curl -s http://k8s-demo-service/health && echo 'Health check completed at $(date)'"]
+            env:
+            - name: JOB_TYPE
+              value: "health-check"
+            resources:
+              requests:
+                memory: "16Mi"
+                cpu: "50m"
+              limits:
+                memory: "32Mi"
+                cpu: "100m"
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
